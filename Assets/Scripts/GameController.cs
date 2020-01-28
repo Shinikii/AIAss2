@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     public Text ProbNum;
     public Text DoorCheck;
     public Text KeyCheck;
+    public Text LevelCount;
 
     double prob;
     bool safe = true;
@@ -36,25 +37,37 @@ public class GameController : MonoBehaviour
         {
             InitializeGame();
         }
-        if (Input.anyKeyDown)
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            nextLevel();
+            
             if (safe == true)
             {
-
+                nextLevel();
                 doorCount++;
+                LevelCount.text = doorCount.ToString();
+}
+            else
+            {
+                Debug.Log("Failed, restarting");
+                InitializeGame();
+                nextLevel();
+                LevelCount.text = doorCount.ToString();
             }
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            
+            Debug.Log("Failed, restarting");
+            InitializeGame();
+            nextLevel();
+            LevelCount.text = doorCount.ToString();
+            
         }
     }
 
     private void InitializeGame()
     {
         doorCount = 0;
-        // Pick a random number
-        prob = Random.Range(1, 10);
-
-        // Set the text to start the game
-        ProbNum.text = "Guess a number between 1 and 10";
 
         string path = "Assets/test.txt";
 
@@ -67,7 +80,7 @@ public class GameController : MonoBehaviour
 
             foreach (var word in words)
             {
-                Debug.Log(word);
+                //Debug.Log(word);
                 double temp;
                 var isNumeric = double.TryParse(word, out temp);
                 if (isNumeric == true)
@@ -199,6 +212,7 @@ public class GameController : MonoBehaviour
         ProbNum.text = rand.ToString();
         DoorCheck.text = combo;
         KeyCheck.text = key.ToString();
+        LevelCount.text = doorCount.ToString();
 
 
     }

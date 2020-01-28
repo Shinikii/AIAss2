@@ -1283,6 +1283,7 @@ MonoBehaviour:
   ProbNum: {fileID: 535973382}
   DoorCheck: {fileID: 1336269915}
   KeyCheck: {fileID: 939374314}
+  LevelCount: {fileID: 309090911}
 --- !u!1 &1806790415
 GameObject:
   m_ObjectHideFlags: 0
