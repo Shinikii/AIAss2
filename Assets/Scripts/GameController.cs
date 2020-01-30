@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 
+
 public class GameController : MonoBehaviour
 {
 
+    public Door curDoor;
+    List<Door> Doors = new List<Door>();
     public Text isHot;
     public Text isNoisy;
     public Text isSafe;
@@ -97,10 +100,17 @@ public class GameController : MonoBehaviour
         }
         reader.Close();
 
+        for (int i = 0; i < 20; i++)
+        {
+            curDoor = makeDoor();
+            Doors.Add(curDoor);
+        }
+      
     }
 
-    private void nextLevel()
+    private Door makeDoor()
     {
+        Door thisDoor = new Door(true, true, true);
         int rand = Random.Range(1, 100);
         int buffer = 0;
         int oldbuffer;
@@ -214,6 +224,10 @@ public class GameController : MonoBehaviour
         KeyCheck.text = key.ToString();
         LevelCount.text = doorCount.ToString();
 
+        thisDoor.setHot(isHot);
+        thisDoor.setNoisy(isNoisy);
+        thisDoor.setSafe(isSafe);
 
+        return thisDoor;
     }
 }

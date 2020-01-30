@@ -5,14 +5,37 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    public bool isSafe;
+    public bool isHot;
+    public bool isNoisy;
+
+    void setSafe(bool val)
     {
-        
+        isSafe = val;
     }
 
-    // Update is called once per frame
-    void Update()
+    bool getSafe()
     {
-        
+        return isSafe;
+    }
+
+    void setHot(bool val)
+    {
+        isHot = val;
+    }
+
+    bool getHot()
+    {
+        return isHot;
+    }
+
+    void setNoisy(bool val)
+    {
+        isNoisy = val;
+    }
+
+    bool getNoisy()
+    {
+        return isNoisy;
     }
 }
