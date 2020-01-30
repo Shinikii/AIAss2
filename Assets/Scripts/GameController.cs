@@ -18,6 +18,9 @@ public class GameController : MonoBehaviour
     public Text KeyCheck;
     public Text LevelCount;
 
+    public Canvas Units;
+
+
     double prob;
     bool safe = true;
     bool hot = true;
@@ -45,15 +48,13 @@ public class GameController : MonoBehaviour
             
             if (safe == true)
             {
-                nextLevel();
                 doorCount++;
                 LevelCount.text = doorCount.ToString();
 }
             else
             {
                 Debug.Log("Failed, restarting");
-                InitializeGame();
-                nextLevel();
+                InitializeGame();             
                 LevelCount.text = doorCount.ToString();
             }
         }
@@ -62,7 +63,6 @@ public class GameController : MonoBehaviour
             
             Debug.Log("Failed, restarting");
             InitializeGame();
-            nextLevel();
             LevelCount.text = doorCount.ToString();
             
         }
@@ -105,7 +105,10 @@ public class GameController : MonoBehaviour
             curDoor = makeDoor();
             Doors.Add(curDoor);
         }
-      
+        for (int i = 0; i < 20; i++)
+        {
+            Units.GetComponentsInChildren < Text >()[i].text = Doors[i].getText();
+        }
     }
 
     private Door makeDoor()
@@ -227,6 +230,7 @@ public class GameController : MonoBehaviour
         thisDoor.setHot(isHot);
         thisDoor.setNoisy(isNoisy);
         thisDoor.setSafe(isSafe);
+        thisDoor.setText(combo);
 
         return thisDoor;
     }

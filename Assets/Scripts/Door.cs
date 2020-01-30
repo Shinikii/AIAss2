@@ -2,40 +2,71 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class Door
 {
     // Start is called before the first frame update
     public bool isSafe;
     public bool isHot;
     public bool isNoisy;
+    public bool isOpen = false;
+    public string doorText;
 
-    void setSafe(bool val)
+    public Door(bool hot, bool noisy, bool safe)
+    {
+        isSafe = safe;
+        isHot = hot;
+        isNoisy = noisy;
+        doorText = "YYY";
+        
+    }
+
+    public void setSafe(bool val)
     {
         isSafe = val;
     }
 
-    bool getSafe()
+    public bool getSafe()
     {
         return isSafe;
     }
 
-    void setHot(bool val)
+    public void setHot(bool val)
     {
         isHot = val;
     }
 
-    bool getHot()
+    public bool getHot()
     {
         return isHot;
     }
 
-    void setNoisy(bool val)
+    public void setNoisy(bool val)
     {
         isNoisy = val;
     }
 
-    bool getNoisy()
+    public bool getNoisy()
     {
         return isNoisy;
+    }
+
+    public void setText(string val)
+    {
+        doorText = val;
+    }
+
+    public string getText()
+    {
+        return doorText;
+    }
+
+    public void setOpen(bool val)
+    {
+        isOpen = val;
+    }
+
+    public bool getOpen()
+    {
+        return isOpen;
     }
 }
