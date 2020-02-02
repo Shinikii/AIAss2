@@ -43,21 +43,7 @@ public class GameController : MonoBehaviour
         {
             InitializeGame();
         }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            
-            if (safe == true)
-            {
-                doorCount++;
-                LevelCount.text = doorCount.ToString();
-}
-            else
-            {
-                Debug.Log("Failed, restarting");
-                InitializeGame();             
-                LevelCount.text = doorCount.ToString();
-            }
-        }
+       
         if (Input.GetKeyDown(KeyCode.N))
         {
             

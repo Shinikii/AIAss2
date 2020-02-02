@@ -22,5 +22,20 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 targetVelocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         GetComponent<Rigidbody2D>().velocity = targetVelocity * playerSpeed;
+
+        /*if (Input.GetKeyDown(KeyCode.F))
+        { 
+            if (safe == true)
+            {
+                doorCount++;
+                LevelCount.text = doorCount.ToString();
+            }
+            else
+            {
+                Debug.Log("Failed, restarting");
+                InitializeGame();
+                LevelCount.text = doorCount.ToString();
+            }
+        }*/
     }
 }
