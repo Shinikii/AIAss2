@@ -88,8 +88,9 @@ public class GameController : MonoBehaviour
 
         for (int i = 0; i < 20; i++)
         {
-            curDoor = makeDoor();
-            Doors.Add(curDoor);
+            rollDoor(i);
+            //Doors.Add(curDoor);
+            //Debug.Log(curDoor.doorText);
         }
         for (int i = 0; i < 20; i++)
         {
@@ -97,9 +98,9 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private Door makeDoor()
+    private void rollDoor(int index)
     {
-        Door thisDoor = new Door(true, true, true);
+        //Door thisDoor = new Door(true, true, true);
         int rand = Random.Range(1, 100);
         int buffer = 0;
         int oldbuffer;
@@ -208,7 +209,7 @@ public class GameController : MonoBehaviour
         {
             isSafe.text = "false";
         }
-        ProbNum.text = rand.ToString();
+        /*ProbNum.text = rand.ToString();
         DoorCheck.text = combo;
         KeyCheck.text = key.ToString();
         LevelCount.text = doorCount.ToString();
@@ -218,6 +219,10 @@ public class GameController : MonoBehaviour
         thisDoor.setSafe(isSafe);
         thisDoor.setText(combo);
 
-        return thisDoor;
+        return thisDoor;*/
+        Units.GetComponentsInChildren<Door>()[index].setText(combo);
+        Units.GetComponentsInChildren<Door>()[index].setHot(isHot);
+        Units.GetComponentsInChildren<Door>()[index].setNoisy(isNoisy);
+        Units.GetComponentsInChildren<Door>()[index].setSafe(isSafe);
     }
 }

@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.IO;
 
 public class Door : MonoBehaviour
 {
     // Start is called before the first frame update
+    public Text Label;
     public bool isSafe;
     public bool isHot;
     public bool isNoisy;
@@ -53,6 +56,7 @@ public class Door : MonoBehaviour
     public void setText(string val)
     {
         doorText = val;
+        Label.text = val;
     }
 
     public string getText()
