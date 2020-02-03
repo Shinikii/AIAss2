@@ -94,7 +94,7 @@ public class GameController : MonoBehaviour
         }
         for (int i = 0; i < 20; i++)
         {
-            Units.GetComponentsInChildren < Text >()[i].text = Doors[i].getText();
+            //Units.GetComponentsInChildren < Text >()[i].text = Doors[i].getText();
         }
     }
 
@@ -221,8 +221,8 @@ public class GameController : MonoBehaviour
 
         return thisDoor;*/
         Units.GetComponentsInChildren<Door>()[index].setText(combo);
-        Units.GetComponentsInChildren<Door>()[index].setHot(isHot);
-        Units.GetComponentsInChildren<Door>()[index].setNoisy(isNoisy);
-        Units.GetComponentsInChildren<Door>()[index].setSafe(isSafe);
+        Units.GetComponentsInChildren<Door>()[index].setHot(hot);
+        Units.GetComponentsInChildren<Door>()[index].setNoisy(noisy);
+        Units.GetComponentsInChildren<Door>()[index].setSafe(safe);
     }
 }

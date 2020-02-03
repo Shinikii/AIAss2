@@ -8,6 +8,9 @@ public class Door : MonoBehaviour
 {
     // Start is called before the first frame update
     public Text Label;
+    public Door target;
+    public ParticleSystem Fire;
+    public ParticleSystem Noise;
     public bool isSafe;
     public bool isHot;
     public bool isNoisy;
@@ -26,6 +29,7 @@ public class Door : MonoBehaviour
     public void setSafe(bool val)
     {
         isSafe = val;
+        target.isSafe = val;
     }
 
     public bool getSafe()
@@ -36,6 +40,7 @@ public class Door : MonoBehaviour
     public void setHot(bool val)
     {
         isHot = val;
+        target.isHot = val;
     }
 
     public bool getHot()
@@ -46,6 +51,7 @@ public class Door : MonoBehaviour
     public void setNoisy(bool val)
     {
         isNoisy = val;
+        target.isNoisy = val;
     }
 
     public bool getNoisy()
@@ -67,6 +73,7 @@ public class Door : MonoBehaviour
     public void setOpen(bool val)
     {
         isOpen = val;
+        target.isOpen = val;
     }
 
     public bool getOpen()
@@ -81,6 +88,13 @@ public class Door : MonoBehaviour
 
     void Update()
     {
-
+        if (isHot && !Fire.isPlaying)
+        {
+            Fire.Play();
+        }
+        if (isNoisy && !Noise.isPlaying)
+        {
+            Noise.Play();
+        }
     }
 }
