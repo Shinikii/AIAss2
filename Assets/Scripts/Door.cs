@@ -11,11 +11,17 @@ public class Door : MonoBehaviour
     public Door target;
     public ParticleSystem Fire;
     public ParticleSystem Noise;
+    private SpriteRenderer spriteRenderer;
+    private Sprite[] sprites;
     public bool isSafe;
     public bool isHot;
     public bool isNoisy;
     public bool isOpen = false;
     public string doorText;
+
+    private int frame = 0;
+    private float deltaTime = 0;
+    private float frameSeconds = 1;
 
     public Door(bool hot, bool noisy, bool safe)
     {
@@ -74,6 +80,7 @@ public class Door : MonoBehaviour
     {
         isOpen = val;
         target.isOpen = val;
+        target.ChangeTheDamnSprite();
     }
 
     public bool getOpen()
@@ -83,7 +90,8 @@ public class Door : MonoBehaviour
 
     void Start()
     {
-
+        spriteRenderer = GetComponent<SpriteRenderer>(); // we are accessing the SpriteRenderer that is attached to the Gameobject
+        sprites = Resources.LoadAll<Sprite>("doorsprite");
     }
 
     void Update()
@@ -97,4 +105,25 @@ public class Door : MonoBehaviour
             Noise.Play();
         }
     }
+
+    void ChangeTheDamnSprite()
+    {
+        //Keep track of the time that has passed
+        deltaTime += Time.deltaTime;
+
+        /*Loop to allow for multiple sprite frame 
+         jumps in a single update call if needed
+         Useful if frameSeconds is very small*/
+        while (deltaTime >= frameSeconds)
+        {
+            deltaTime -= frameSeconds;
+            frame++;
+
+            if (frame >= sprites.Length)
+                frame = sprites.Length - 1;
+        }
+        //Animate sprite with selected frame
+        spriteRenderer.sprite = sprites[frame];
+    }
 }
+

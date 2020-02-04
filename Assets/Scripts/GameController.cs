@@ -115,9 +115,9 @@ public class GameController : MonoBehaviour
             {
                 key = i + 1;
             }
-            Debug.Log(oldbuffer);
-            Debug.Log(", ");
-            Debug.Log(buffer);
+           // Debug.Log(oldbuffer);
+           // Debug.Log(", ");
+           // Debug.Log(buffer);
         }
         switch (key)
         {

@@ -2707,6 +2707,7 @@ GameObject:
   - component: {fileID: 1126002984}
   - component: {fileID: 1126002983}
   - component: {fileID: 1126002985}
+  - component: {fileID: 1126002986}
   m_Layer: 5
   m_Name: Orky
   m_TagString: Player
@@ -2746,6 +2747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 500
+  Units: {fileID: 0}
 --- !u!212 &1126002984
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2816,6 +2818,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &1126002986
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126002981}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.5, y: 5.5}
+    newSize: {x: 5.5, y: 5.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4, y: 4}
+  m_EdgeRadius: 0
 --- !u!198 &1141657423 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 8791963611589913978, guid: e3e4604e3d743a6489f7cf042238cfd5,

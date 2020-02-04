@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
 
     public float playerSpeed = 50f;
+    public Canvas Units;
 
     void Start()
     {
@@ -22,20 +23,16 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 targetVelocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         GetComponent<Rigidbody2D>().velocity = targetVelocity * playerSpeed;
+    }
 
-        /*if (Input.GetKeyDown(KeyCode.F))
-        { 
-            if (safe == true)
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if(Input.GetKey(KeyCode.F))
+        {
+            if (col.transform.parent.gameObject.tag == "Door")
             {
-                doorCount++;
-                LevelCount.text = doorCount.ToString();
+                col.transform.parent.gameObject.SendMessage("setOpen", true);
             }
-            else
-            {
-                Debug.Log("Failed, restarting");
-                InitializeGame();
-                LevelCount.text = doorCount.ToString();
-            }
-        }*/
+        }
     }
 }
