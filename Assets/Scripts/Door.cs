@@ -4,24 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 
+//Bill Ko 100590491
 public class Door : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Text Label;
-    public Door target;
-    public ParticleSystem Fire;
+    public Text Label;  //door label
+    public Door target; //door obj
+    public ParticleSystem Fire; //particles
     public ParticleSystem Noise;
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer spriteRenderer;  //sprite renderer used wen trying to get animation
     private Sprite[] sprites;
-    public bool isSafe;
+    public bool isSafe;     //these were used for debug
     public bool isHot;
     public bool isNoisy;
     public bool isOpen = false;
     public string doorText;
-
-    private int frame = 0;
-    private float deltaTime = 0;
-    private float frameSeconds = 1;
 
     public Door(bool hot, bool noisy, bool safe)
     {
@@ -80,7 +77,8 @@ public class Door : MonoBehaviour
     {
         isOpen = val;
         target.isOpen = val;
-        target.ChangeTheDamnSprite();
+        Debug.Log("test");
+        target.ChangeSprite();
     }
 
     public bool getOpen()
@@ -100,30 +98,32 @@ public class Door : MonoBehaviour
         {
             Fire.Play();
         }
+        else if (!isHot && Fire.isPlaying)
+        {
+            Fire.Stop();
+            Fire.Clear();
+        }
         if (isNoisy && !Noise.isPlaying)
         {
             Noise.Play();
         }
+        else if (!isNoisy && Noise.isPlaying)
+        {
+            Noise.Stop();
+            Noise.Clear();
+        }
     }
 
-    void ChangeTheDamnSprite()
+    void ChangeSprite()
     {
-        //Keep track of the time that has passed
-        deltaTime += Time.deltaTime;
+        Debug.Log("did not break");
+    }
 
-        /*Loop to allow for multiple sprite frame 
-         jumps in a single update call if needed
-         Useful if frameSeconds is very small*/
-        while (deltaTime >= frameSeconds)
-        {
-            deltaTime -= frameSeconds;
-            frame++;
-
-            if (frame >= sprites.Length)
-                frame = sprites.Length - 1;
-        }
-        //Animate sprite with selected frame
-        spriteRenderer.sprite = sprites[frame];
+    void reset()
+    {
+        Fire.Stop();
+        Noise.Stop();
     }
 }
 
+//Assets/bbbb.txt

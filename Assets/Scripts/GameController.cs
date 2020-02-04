@@ -4,68 +4,60 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 
-
+//Bill Ko 100590491
 public class GameController : MonoBehaviour
 {
 
-    public Door curDoor;
-    List<Door> Doors = new List<Door>();
-    public Text isHot;
+    public Door curDoor;    //current door
+    List<Door> Doors = new List<Door>();    //list of doors
+    public Text isHot;  //for debugging traits
     public Text isNoisy;
     public Text isSafe;
     public Text ProbNum;
     public Text DoorCheck;
     public Text KeyCheck;
     public Text LevelCount;
+    public InputField input;    //filepath input field
 
-    public Canvas Units;
+    public Canvas Units;        //list of doors
 
-
+    string filepath = "Assets/aaaa.txt";
     double prob;
-    bool safe = true;
+    bool safe = true;       //traits
     bool hot = true;
     bool noisy = true;
-    string combo;
-    int doorCount;
-    List<double> probs = new List<double>();
+    string combo;           //YYN traits
+    List<double> probs = new List<double>();    //list of file-read data
 
     // Use this for initialization
     void Start()
     {
-        InitializeGame();
+        InitializeGame(); //loads probability file and rolls door probabilities
     }
 
     // Update is called once per frame
     void Update()
     {
         // Hitting the spacebar always restarts the game
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)) 
         {
             InitializeGame();
-        }
-       
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            
-            Debug.Log("Failed, restarting");
-            InitializeGame();
-            LevelCount.text = doorCount.ToString();
-            
         }
     }
 
     private void InitializeGame()
     {
-        doorCount = 0;
-
-        string path = "Assets/test.txt";
+        BroadcastMessage("reset");
+        Doors.Clear();
+        probs.Clear();
+        string path = filepath; //reads filepath
 
         //Read the text from directly from the test.txt file
         StreamReader reader = new StreamReader(path);
         string line;
         while ((line = reader.ReadLine()) != null)
         {
-            string[] words = line.Split('\t');
+            string[] words = line.Split('\t');  //reads data from file, separating by tab
 
             foreach (var word in words)
             {
@@ -74,7 +66,7 @@ public class GameController : MonoBehaviour
                 var isNumeric = double.TryParse(word, out temp);
                 if (isNumeric == true)
                 {
-                    probs.Add(temp);
+                    probs.Add(temp);        //save probabilities into a list
                 }
             }
 
@@ -88,38 +80,31 @@ public class GameController : MonoBehaviour
 
         for (int i = 0; i < 20; i++)
         {
-            rollDoor(i);
-            //Doors.Add(curDoor);
-            //Debug.Log(curDoor.doorText);
-        }
-        for (int i = 0; i < 20; i++)
-        {
-            //Units.GetComponentsInChildren < Text >()[i].text = Doors[i].getText();
+            rollDoor(i); //rolls door properties one at a time
         }
     }
 
     private void rollDoor(int index)
     {
-        //Door thisDoor = new Door(true, true, true);
-        int rand = Random.Range(1, 100);
+        int rand = Random.Range(1, 100);    //roll a number from 1 to 100
         int buffer = 0;
         int oldbuffer;
         int key = 0;
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 8; i++)         //looping for each of the door combo possibilities
         {
             int tempNum = (int)(probs[i] * 100);
             oldbuffer = buffer;
             buffer += tempNum;
-            if (oldbuffer < rand && rand <= buffer)
+            if (oldbuffer < rand && rand <= buffer) //if rolled number is within the current proability bracket
             {
-                key = i + 1;
+                key = i + 1;                         //assign door traits using switch key below
             }
            // Debug.Log(oldbuffer);
            // Debug.Log(", ");
            // Debug.Log(buffer);
         }
-        switch (key)
+        switch (key)                                    //depending on rolled bracket, door attribute cases here
         {
             case 1:
                 hot = true;
@@ -209,20 +194,15 @@ public class GameController : MonoBehaviour
         {
             isSafe.text = "false";
         }
-        /*ProbNum.text = rand.ToString();
-        DoorCheck.text = combo;
-        KeyCheck.text = key.ToString();
-        LevelCount.text = doorCount.ToString();
-
-        thisDoor.setHot(isHot);
-        thisDoor.setNoisy(isNoisy);
-        thisDoor.setSafe(isSafe);
-        thisDoor.setText(combo);
-
-        return thisDoor;*/
-        Units.GetComponentsInChildren<Door>()[index].setText(combo);
+        Units.GetComponentsInChildren<Door>()[index].setText(combo);    //assign traits to Door object
         Units.GetComponentsInChildren<Door>()[index].setHot(hot);
         Units.GetComponentsInChildren<Door>()[index].setNoisy(noisy);
         Units.GetComponentsInChildren<Door>()[index].setSafe(safe);
+    }
+
+    private void reload(string newpath)             //reload game using new filepath
+    {
+        filepath = newpath;
+        InitializeGame();
     }
 }
